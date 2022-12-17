@@ -40,18 +40,38 @@ func (cmd *Cmd) Execute(notes *Notepad) {
 		fmt.Println("[Info] Bye!")
 		os.Exit(1)
 	case "create":
-		fmt.Println(notes.Create(cmd.data))
+		handleCreate(notes, cmd.data)
 	case "list":
-		notes.List()
+		handleList(notes)
 	case "clear":
-		fmt.Println(notes.Clear())
+		handleClear(notes)
 	case "update":
-		fmt.Println(notes.Update(cmd.data))
+		handleUpdate(notes, cmd.data)
 	case "delete":
-		fmt.Println(notes.Delete(cmd.data))
+		handleDelete(notes, cmd.data)
 	default:
 		fmt.Println("[Error] Unknown command")
 	}
+}
+
+func handleCreate(notes *Notepad, input string) {
+	fmt.Println(notes.Create(input))
+}
+
+func handleList(notes *Notepad) {
+	notes.List()
+}
+
+func handleClear(notes *Notepad) {
+	fmt.Println(notes.Clear())
+}
+
+func handleUpdate(notes *Notepad, input string) {
+	fmt.Println(notes.Update(input))
+}
+
+func handleDelete(notes *Notepad, input string) {
+	fmt.Println(notes.Delete(input))
 }
 
 type Notepad struct {
