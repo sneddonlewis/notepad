@@ -14,7 +14,7 @@ func RunUi(size int) {
 	notes := NewNotepad(size)
 	for {
 		fmt.Println(prompt)
-		cmd := ParseInput()
+		cmd := parseInput()
 		cmd.Execute(notes)
 	}
 }
@@ -23,7 +23,7 @@ type Cmd struct {
 	command, data string
 }
 
-func ParseInput() Cmd {
+func parseInput() Cmd {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Split(bufio.ScanLines)
 	scanner.Scan()
