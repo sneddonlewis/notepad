@@ -88,7 +88,9 @@ func (notepad *Notepad) Update(args string) string {
 	}
 
 	notepad.notes[position-1] = sb.String()
-	return fmt.Sprintf("[Ok] The note at position %d was successfully updated", position)
+	return fmt.Sprintf(
+		"[Ok] The note at position %d was successfully updated",
+		position)
 }
 
 func (notepad *Notepad) Delete(args string) string {
@@ -122,5 +124,7 @@ func (notepad *Notepad) Delete(args string) string {
 	notepad.notes = notes
 	notepad.size -= 1
 
-	return fmt.Sprintf("[Ok] The note at position %d was successfully deleted", position)
+	return fmt.Sprintf(
+		"[Ok] The note at position %d was successfully deleted",
+		position)
 }
