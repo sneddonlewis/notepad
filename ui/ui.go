@@ -8,8 +8,30 @@ import (
 	"strings"
 )
 
+const prompt = "Enter a command and data:"
+
+func RunUi(size int) {
+	notes := NewNotepad(size)
+	for {
+		fmt.Println(prompt)
+		cmd := ParseInput()
+		cmd.Execute(notes)
+	}
+}
+
 type Cmd struct {
 	command, data string
+}
+
+func ParseInput() Cmd {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Split(bufio.ScanLines)
+	scanner.Scan()
+	line := scanner.Text()
+	words := strings.Split(line, " ")
+	cmd := words[0]
+	data := strings.TrimPrefix(strings.Join(words, " "), cmd+" ")
+	return Cmd{cmd, data}
 }
 
 func (cmd *Cmd) Execute(notes *Notepad) {
@@ -30,17 +52,6 @@ func (cmd *Cmd) Execute(notes *Notepad) {
 	default:
 		fmt.Println("[Error] Unknown command")
 	}
-}
-
-func ParseInput() Cmd {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Split(bufio.ScanLines)
-	scanner.Scan()
-	line := scanner.Text()
-	words := strings.Split(line, " ")
-	cmd := words[0]
-	data := strings.TrimPrefix(strings.Join(words, " "), cmd+" ")
-	return Cmd{cmd, data}
 }
 
 type Notepad struct {
